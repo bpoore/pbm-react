@@ -174,7 +174,7 @@ class Map extends Component {
             this.props.updateMapCoordinates(region.latitude, region.longitude, region.latitudeDelta, region.longitudeDelta)
         }
 
-        if (Math.abs(region.latitude - this.prevRegion.latitude) > 0.0001) {
+        if (Math.abs(region.latitude - this.prevRegion.latitude) > 0.00001) {
             setTimeout(compareRegion, 600, region)
         }
 
@@ -319,6 +319,10 @@ class Map extends Component {
                         showsMyLocationButton={false}
                         provider = { MapView.PROVIDER_GOOGLE }
                         customMapStyle={theme.theme === 'dark' ? androidCustomDark : []}
+                        pitchEnabled={!isFetchingLocations}
+                        rotateEnabled={!isFetchingLocations}
+                        zoomEnabled={!isFetchingLocations}
+                        scrollEnabled={!isFetchingLocations}
                     >
                         {mapLocations.map(l => <CustomMarker key={l.id} marker={l} navigation={navigation} s={s} />)}
                     </MapView>
@@ -414,7 +418,7 @@ const getStyles = theme => StyleSheet.create({
         fontWeight: 'bold'
     },
     appAlertHeader: {
-        backgroundColor: theme.warningButtonColor, 
+        backgroundColor: theme.warningButtonColor,
         marginTop: -15,
         borderTopLeftRadius: 15,
         borderTopRightRadius: 15,
